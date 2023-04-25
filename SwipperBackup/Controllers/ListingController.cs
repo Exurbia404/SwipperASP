@@ -52,7 +52,7 @@ namespace SwipperBackup.Controllers
 
 
             // Update other properties as needed
-
+            _localStorage.SaveLists();
             return NoContent();
         }
 
@@ -62,7 +62,7 @@ namespace SwipperBackup.Controllers
         public async Task<ActionResult<Listing>> PostUser(Listing listing)
         {
             _localStorage.Listings.Add(listing);
-
+            _localStorage.SaveLists();
             return CreatedAtAction(nameof(GetListings), new { id = listing.Id }, listing);
         }
 
@@ -78,7 +78,7 @@ namespace SwipperBackup.Controllers
                     _localStorage.Listings.Remove(foundListing);
                 }
             }
-
+            _localStorage.SaveLists();
             return NoContent();
         }
 

@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "+4j31N4SqQ+WZaIGFC87t+rexROeRDMVvPMdUcYoWQyhA6noAJV8gdLS8McIIpJCjioG7Q6dIasLKRGei1d/NQ==",
+  "dgSpecHash": "N1LcB/5HvRThjDoxLCIDARtSmZDKqTNh7Z9obrvVVwv473OoLbcyp1dp3bX8gAbn/A88it6dG1Syp0CACEwVLw==",
   "success": true,
   "projectFilePath": "C:\\Users\\tomvh\\Documents\\School\\S3 - 2023\\Proof of concepts\\SwipperASP\\SwipperBackup\\SwipperBackup.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tomvh\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\tomvh\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\tomvh\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\tomvh\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\tomvh\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
     "C:\\Users\\tomvh\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",

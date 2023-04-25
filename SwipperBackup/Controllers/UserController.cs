@@ -58,7 +58,7 @@ namespace SwipperBackup.Controllers
             existingUser.HasPet = user.HasPet;
             existingUser.HasGarden = user.HasGarden;
             // Update other properties as needed
-
+            _localStorage.SaveLists();
             return NoContent();
         }
 
@@ -68,7 +68,7 @@ namespace SwipperBackup.Controllers
         public async Task<ActionResult<User>> PostUser(User user)
         {
             _localStorage.Users.Add(user);
-            
+            _localStorage.SaveLists();
             return CreatedAtAction(nameof(GetUsers), new { id = user.Id }, user);
         }
 
@@ -84,7 +84,7 @@ namespace SwipperBackup.Controllers
                     _localStorage.Users.Remove(foundUser);
                 }
             }
-
+            _localStorage.SaveLists();
             return NoContent();
         }
 
