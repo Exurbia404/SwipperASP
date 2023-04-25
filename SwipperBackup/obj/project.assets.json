@@ -230,11 +230,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tomvh\\Documents\\School\\S3 - 2023\\Proof of concepts\\SwipperBackup\\SwipperBackup.csproj",
+      "projectUniqueName": "C:\\Users\\tomvh\\Documents\\School\\S3 - 2023\\Proof of concepts\\SwipperASP\\SwipperBackup\\SwipperBackup.csproj",
       "projectName": "SwipperBackup",
-      "projectPath": "C:\\Users\\tomvh\\Documents\\School\\S3 - 2023\\Proof of concepts\\SwipperBackup\\SwipperBackup.csproj",
+      "projectPath": "C:\\Users\\tomvh\\Documents\\School\\S3 - 2023\\Proof of concepts\\SwipperASP\\SwipperBackup\\SwipperBackup.csproj",
       "packagesPath": "C:\\Users\\tomvh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tomvh\\Documents\\School\\S3 - 2023\\Proof of concepts\\SwipperBackup\\obj\\",
+      "outputPath": "C:\\Users\\tomvh\\Documents\\School\\S3 - 2023\\Proof of concepts\\SwipperASP\\SwipperBackup\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

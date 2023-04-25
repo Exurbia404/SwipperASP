@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iJW1TrLtWIhACiON0XIOc6GmKvbN6khBJhSMIqN1InHQ03jpY6mWrfof+wilcA/oJTkN2FTiVjcOoJmNXYykZg==",
+  "dgSpecHash": "+4j31N4SqQ+WZaIGFC87t+rexROeRDMVvPMdUcYoWQyhA6noAJV8gdLS8McIIpJCjioG7Q6dIasLKRGei1d/NQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tomvh\\Documents\\School\\S3 - 2023\\Proof of concepts\\SwipperBackup\\SwipperBackup.csproj",
+  "projectFilePath": "C:\\Users\\tomvh\\Documents\\School\\S3 - 2023\\Proof of concepts\\SwipperASP\\SwipperBackup\\SwipperBackup.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tomvh\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\tomvh\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
