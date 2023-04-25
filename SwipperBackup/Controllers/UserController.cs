@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SwipperBackup.Data;
 using SwipperBackup.Models;
 
@@ -9,56 +10,55 @@ namespace SwipperBackup.Controllers
     [ApiController]
     public class UserController : Controller
     {
-        private Data.LocalStorage _localStorage;
+        private Data.DatabaseContext _context;
 
-        public UserController(Data.LocalStorage localStorage)
+        public UserController(Data.DatabaseContext context)
         {
-            _localStorage = localStorage;
+            _context = context;
         }
 
         // GET: api/Users
         [HttpGet]
         public List<User> GetUsers()
         {
-            return _localStorage.Users.ToList();
+            return _context.Users.ToList();
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
         public User GetUsers(int id)
         {
-            return _localStorage.Users.FirstOrDefault(b => b.Id == id);
+            return _context.Users.FirstOrDefault(b => b.Id == id);
         }
 
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public IActionResult PutUser(int id, User user)
+        public async Task<IActionResult> PutUser(int id, User user)
         {
             if (id != user.Id)
             {
                 return BadRequest();
             }
 
-            var existingUser = _localStorage.Users.FirstOrDefault(u => u.Id == id);
-            if (existingUser == null)
+            _context.Entry(user).State = EntityState.Modified;
+
+            try
             {
-                return NotFound();
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
-            existingUser.Username = user.Username;
-            existingUser.Firstname = user.Firstname;
-            existingUser.Lastname = user.Lastname;
-            existingUser.Password = user.Password;
-            existingUser.Email = user.Email;
-            existingUser.Address = user.Address;
-            existingUser.LivingSpace = user.LivingSpace;
-            existingUser.Description = user.Description;
-            existingUser.CompanyName = user.CompanyName;
-            existingUser.HasPet = user.HasPet;
-            existingUser.HasGarden = user.HasGarden;
-            // Update other properties as needed
-            _localStorage.SaveLists();
             return NoContent();
         }
 
@@ -67,8 +67,9 @@ namespace SwipperBackup.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-            _localStorage.Users.Add(user);
-            _localStorage.SaveLists();
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
             return CreatedAtAction(nameof(GetUsers), new { id = user.Id }, user);
         }
 
@@ -76,21 +77,21 @@ namespace SwipperBackup.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBrand(int id)
         {
-            foreach (User user in _localStorage.Users)
+            var brand = await _context.Users.FindAsync(id);
+            if (brand == null)
             {
-                if (user.Id == id)
-                {
-                    User foundUser = user;
-                    _localStorage.Users.Remove(foundUser);
-                }
+                return NotFound();
             }
-            _localStorage.SaveLists();
+
+            _context.Users.Remove(brand);
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
         private bool UserExists(int id)
         {
-            return _localStorage.Users.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.Id == id);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SwipperBackup.Models;
 
 namespace SwipperBackup.Controllers
@@ -8,51 +9,55 @@ namespace SwipperBackup.Controllers
     [ApiController]
     public class ListingController : Controller
     {
-        private Data.LocalStorage _localStorage;
+        private Data.DatabaseContext _context;
 
-        public ListingController(Data.LocalStorage localStorage)
+        public ListingController(Data.DatabaseContext context)
         {
-            _localStorage = localStorage;
+            _context = context;
         }
 
         // GET: api/Listings
         [HttpGet]
         public List<Listing> GetListings()
         {
-            return _localStorage.Listings.ToList();
+            return _context.Listings.ToList();
         }
 
         // GET: api/Listings/5
         [HttpGet("{id}")]
         public Listing GetListings(int id)
         {
-            return _localStorage.Listings.FirstOrDefault(b => b.Id == id);
+            return _context.Listings.FirstOrDefault(b => b.Id == id);
         }
 
         // PUT: api/Listings/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public IActionResult PutListing(int id, Listing listing)
+        public async Task<IActionResult> PutListing(int id, Listing listing)
         {
             if (id != listing.Id)
             {
                 return BadRequest();
             }
 
-            var existingListing = _localStorage.Listings.FirstOrDefault(u => u.Id == id);
-            if (existingListing == null)
+            _context.Entry(listing).State = EntityState.Modified;
+
+            try
             {
-                return NotFound();
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ListingExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
-            existingListing.Id = listing.Id;
-            existingListing.AnimalName = listing.AnimalName;
-            existingListing.AnimalSpecies = listing.AnimalSpecies;
-            existingListing.AnimalImageLink = listing.AnimalImageLink;
-
-
-            // Update other properties as needed
-            _localStorage.SaveLists();
             return NoContent();
         }
 
@@ -61,8 +66,9 @@ namespace SwipperBackup.Controllers
         [HttpPost]
         public async Task<ActionResult<Listing>> PostUser(Listing listing)
         {
-            _localStorage.Listings.Add(listing);
-            _localStorage.SaveLists();
+            _context.Listings.Add(listing);
+            await _context.SaveChangesAsync();
+
             return CreatedAtAction(nameof(GetListings), new { id = listing.Id }, listing);
         }
 
@@ -70,21 +76,21 @@ namespace SwipperBackup.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteListing(int id)
         {
-            foreach (Listing listing in _localStorage.Listings)
+            var brand = await _context.Listings.FindAsync(id);
+            if (brand == null)
             {
-                if (listing.Id == id)
-                {
-                    Listing foundListing = listing;
-                    _localStorage.Listings.Remove(foundListing);
-                }
+                return NotFound();
             }
-            _localStorage.SaveLists();
+
+            _context.Listings.Remove(brand);
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
         private bool ListingExists(int id)
         {
-            return _localStorage.Listings.Any(e => e.Id == id);
+            return _context.Listings.Any(e => e.Id == id);
         }
     }
 }
