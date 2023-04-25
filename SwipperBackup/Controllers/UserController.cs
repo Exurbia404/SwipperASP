@@ -1,83 +1,96 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SwipperBackup.Data;
+using SwipperBackup.Models;
 
 namespace SwipperBackup.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserController : Controller
     {
-        // GET: UserController
-        public ActionResult Index()
+        private Data.LocalStorage _localStorage;
+
+        public UserController(Data.LocalStorage localStorage)
         {
-            return View();
+            _localStorage = localStorage;
         }
 
-        // GET: UserController/Details/5
-        public ActionResult Details(int id)
+        // GET: api/Users
+        [HttpGet]
+        public List<User> GetUsers()
         {
-            return View();
+            return _localStorage.Users.ToList();
         }
 
-        // GET: UserController/Create
-        public ActionResult Create()
+        // GET: api/Users/5
+        [HttpGet("{id}")]
+        public User GetUsers(int id)
         {
-            return View();
+            return _localStorage.Users.FirstOrDefault(b => b.Id == id);
         }
 
-        // POST: UserController/Create
+        // PUT: api/Users/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public IActionResult PutUser(int id, User user)
+        {
+            if (id != user.Id)
+            {
+                return BadRequest();
+            }
+
+            var existingUser = _localStorage.Users.FirstOrDefault(u => u.Id == id);
+            if (existingUser == null)
+            {
+                return NotFound();
+            }
+
+            existingUser.Username = user.Username;
+            existingUser.Firstname = user.Firstname;
+            existingUser.Lastname = user.Lastname;
+            existingUser.Password = user.Password;
+            existingUser.Email = user.Email;
+            existingUser.Address = user.Address;
+            existingUser.LivingSpace = user.LivingSpace;
+            existingUser.Description = user.Description;
+            existingUser.CompanyName = user.CompanyName;
+            existingUser.HasPet = user.HasPet;
+            existingUser.HasGarden = user.HasGarden;
+            // Update other properties as needed
+
+            return NoContent();
+        }
+
+        // POST: api/Users
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult<User>> PostUser(User user)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _localStorage.Users.Add(user);
+            
+            return CreatedAtAction(nameof(GetUsers), new { id = user.Id }, user);
         }
 
-        // GET: UserController/Edit/5
-        public ActionResult Edit(int id)
+        // DELETE: api/Users/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBrand(int id)
         {
-            return View();
+            foreach (User user in _localStorage.Users)
+            {
+                if (user.Id == id)
+                {
+                    User foundUser = user;
+                    _localStorage.Users.Remove(foundUser);
+                }
+            }
+
+            return NoContent();
         }
 
-        // POST: UserController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        private bool UserExists(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: UserController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: UserController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return _localStorage.Users.Any(e => e.Id == id);
         }
     }
 }

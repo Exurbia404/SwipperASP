@@ -1,83 +1,90 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SwipperBackup.Models;
 
 namespace SwipperBackup.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ListingController : Controller
     {
-        // GET: ListingController
-        public ActionResult Index()
+        private Data.LocalStorage _localStorage;
+
+        public ListingController(Data.LocalStorage localStorage)
         {
-            return View();
+            _localStorage = localStorage;
         }
 
-        // GET: ListingController/Details/5
-        public ActionResult Details(int id)
+        // GET: api/Listings
+        [HttpGet]
+        public List<Listing> GetListings()
         {
-            return View();
+            return _localStorage.Listings.ToList();
         }
 
-        // GET: ListingController/Create
-        public ActionResult Create()
+        // GET: api/Listings/5
+        [HttpGet("{id}")]
+        public Listing GetListings(int id)
         {
-            return View();
+            return _localStorage.Listings.FirstOrDefault(b => b.Id == id);
         }
 
-        // POST: ListingController/Create
+        // PUT: api/Listings/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public IActionResult PutListing(int id, Listing listing)
+        {
+            if (id != listing.Id)
+            {
+                return BadRequest();
+            }
+
+            var existingListing = _localStorage.Listings.FirstOrDefault(u => u.Id == id);
+            if (existingListing == null)
+            {
+                return NotFound();
+            }
+
+            existingListing.Id = listing.Id;
+            existingListing.AnimalName = listing.AnimalName;
+            existingListing.AnimalSpecies = listing.AnimalSpecies;
+            existingListing.AnimalImageLink = listing.AnimalImageLink;
+
+
+            // Update other properties as needed
+
+            return NoContent();
+        }
+
+        // POST: api/Listings
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult<Listing>> PostUser(Listing listing)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _localStorage.Listings.Add(listing);
+
+            return CreatedAtAction(nameof(GetListings), new { id = listing.Id }, listing);
         }
 
-        // GET: ListingController/Edit/5
-        public ActionResult Edit(int id)
+        // DELETE: api/Listings/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteListing(int id)
         {
-            return View();
+            foreach (Listing listing in _localStorage.Listings)
+            {
+                if (listing.Id == id)
+                {
+                    Listing foundListing = listing;
+                    _localStorage.Listings.Remove(foundListing);
+                }
+            }
+
+            return NoContent();
         }
 
-        // POST: ListingController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        private bool ListingExists(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ListingController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ListingController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return _localStorage.Listings.Any(e => e.Id == id);
         }
     }
 }
