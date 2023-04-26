@@ -1,6 +1,6 @@
 # SwipperASP
 
-A simple version of the Swipper API using ASP.net and local storage.
+A simple version of the Swipper API using ASP.net and local storage. Make sure that your pulling from the 'release' branch
 
 ### Folder structure:
 
