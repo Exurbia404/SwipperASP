@@ -1,0 +1,12 @@
+C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\SwipperBackup.exe
+C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\appsettings.Development.json
+C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\appsettings.json
+C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\SwipperBackup.dll
+C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\SwipperBackup.deps.json
+C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\SwipperBackup.runtimeconfig.json
+C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\SwipperBackup.pdb
+C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\Microsoft.OpenApi.dll
+C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\Newtonsoft.Json.dll
+C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
