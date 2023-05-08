@@ -12,11 +12,14 @@
         public string LivingSpace { get; set; }
         public string Description { get; set; }
 
+        //TODO: make optional
         public string CompanyName { get; set; }
         public bool HasPet { get; set; }
         public bool HasGarden { get; set; }
+        public string LikedAnimals { get; set; }
+        public string OwnAnimals { get; set; }
 
-        public User(int id, string username, string firstname, string lastname, string password, string email, string address, string livingSpace, string description, string companyName, bool hasPet, bool hasGarden)
+        public User(int id, string username, string firstname, string lastname, string password, string email, string address, string livingSpace, string description, string companyName, bool hasPet, bool hasGarden, string likedAnimals, string ownAnimals)
         {
             Id = id;
             Username = username;
@@ -30,6 +33,8 @@
             CompanyName = companyName;
             HasPet = hasPet;
             HasGarden = hasGarden;
+            LikedAnimals = likedAnimals;
+            OwnAnimals = ownAnimals;
         }
     }
 }
