@@ -139,6 +139,37 @@
         }
       }
     },
+    "/api/GetListingByOwner": {
+      "get": {
+        "tags": [
+          "Listing"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "ownerId",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Listing"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/User": {
       "get": {
         "tags": [
@@ -272,56 +303,106 @@
           }
         }
       }
-    }
-  },
-  "definitions": {
-    "DateOnly": {
-      "type": "object",
-      "properties": {
-        "year": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "month": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "day": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "dayOfWeek": {
-          "$ref": "#/definitions/DayOfWeek"
-        },
-        "dayOfYear": {
-          "format": "int32",
-          "type": "integer",
-          "readOnly": true
-        },
-        "dayNumber": {
-          "format": "int32",
-          "type": "integer",
-          "readOnly": true
+    },
+    "/api/LikeAnimal": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "userId",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "animalId",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
         }
       }
     },
-    "DayOfWeek": {
-      "format": "int32",
-      "enum": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ],
-      "type": "integer"
+    "/api/User/GetFavoriteListings": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "userId",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Listing"
+              }
+            }
+          }
+        }
+      }
     },
+    "/api/Authenticate": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "password",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
     "Listing": {
       "type": "object",
       "properties": {
         "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "ownerId": {
           "format": "int32",
           "type": "integer"
         },
@@ -349,7 +430,8 @@
           "type": "integer"
         },
         "listingDate": {
-          "$ref": "#/definitions/DateOnly"
+          "format": "date-time",
+          "type": "string"
         }
       }
     },
@@ -392,6 +474,12 @@
         },
         "hasGarden": {
           "type": "boolean"
+        },
+        "likedAnimals": {
+          "type": "string"
+        },
+        "ownAnimals": {
+          "type": "string"
         }
       }
     }

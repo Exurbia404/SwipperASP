@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SwipperBackup.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SwipperBackup;
 public class Startup
@@ -15,7 +16,10 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddScoped<DatabaseContext>();
+        var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
+
+        services.AddDbContext<DatabaseContext>(options =>
+            options.UseMySql(_configuration.GetConnectionString("DefaultConnection"), serverVersion));
 
         services.AddControllers();
 

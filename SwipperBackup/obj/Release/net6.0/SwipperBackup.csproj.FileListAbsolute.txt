@@ -45,3 +45,4 @@ C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBa
 C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\SwipperBackup.pdb
 C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\SwipperBackup.genruntimeconfig.cache
 C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\ref\SwipperBackup.dll
+C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\bin\Release\net6.0\DevOne.Security.Cryptography.BCrypt.dll

@@ -5,6 +5,7 @@ C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBa
 C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\SwipperBackup.deps.json
 C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\SwipperBackup.runtimeconfig.json
 C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\SwipperBackup.pdb
+C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\DevOne.Security.Cryptography.BCrypt.dll
 C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\Microsoft.EntityFrameworkCore.dll
 C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Users\tomvh\Documents\School\S3 - 2023\Proof of concepts\SwipperASP\SwipperBackup\obj\Release\net6.0\PubTmp\Out\Microsoft.EntityFrameworkCore.Relational.dll

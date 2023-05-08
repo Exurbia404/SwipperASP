@@ -11,9 +11,9 @@
         public bool IsMale { get; set; }
         public string Address { get; set; }
         public int Age { get; set; }
-        public System.DateOnly ListingDate { get; set; }
+        public DateTime ListingDate { get; set; }
 
-        public Listing(int id, int ownerId, string animalName, string animalSpecies, string animalImageLink, int price, bool isMale, string address, DateOnly listingDate, int age)
+        public Listing(int id, int ownerId, string animalName, string animalSpecies, string animalImageLink, int price, bool isMale, string address, DateTime listingDate, int age)
         {
             Id = id;
             OwnerId = ownerId;

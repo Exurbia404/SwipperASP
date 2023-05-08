@@ -88,6 +88,17 @@ namespace SwipperBackup.Controllers
             return NoContent();
         }
 
+        
+        [HttpGet]
+        [Route("/api/GetListingByOwner")]
+        public List<Listing> GetListingByOwner(int ownerId)
+        {
+            var listings = _context.Listings.Where(l => l.OwnerId == ownerId).ToList();
+
+            return listings;
+        }
+
+
         private bool ListingExists(int id)
         {
             return _context.Listings.Any(e => e.Id == id);

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SwipperBackup.Data;
 using SwipperBackup.Models;
+using DevOne.Security.Cryptography.BCrypt;
 
 namespace SwipperBackup.Controllers
 {
@@ -49,7 +50,7 @@ namespace SwipperBackup.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!EmailTaken(user.Email))
                 {
                     return NotFound();
                 }
@@ -89,9 +90,71 @@ namespace SwipperBackup.Controllers
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        [HttpPost]
+        [Route("/api/LikeAnimal")]
+        public void LikeAnimal(int userId, int animalId)
         {
-            return _context.Users.Any(e => e.Id == id);
+            _context.Users.Find(userId).LikedAnimals += "," + animalId;
+            _context.SaveChanges();
+        }
+
+        [HttpGet]
+        [Route("/api/User/GetFavoriteListings")]
+        public List<Listing> GetFavoriteListings(int userId)
+        {
+            User foundUser = _context.Users.FirstOrDefault(b => b.Id == userId);
+
+            List<int> foundFavoriteIds = GetIdsFromString(foundUser.LikedAnimals);
+            List<Listing> foundFavoriteListings = new List<Listing>();
+            foreach (int id in foundFavoriteIds)
+            {
+                foundFavoriteListings.Add(_context.Listings.FirstOrDefault(b => b.Id == id));
+            }
+            return foundFavoriteListings;
+        }
+
+        [HttpPost]
+        [Route("/api/Authenticate")]
+        public bool Authenticate(string email, string password)
+        {
+            bool isValidUser = false;
+
+            // Retrieve the user from the database using the provided email
+            var user = _context.Users.FirstOrDefault(u => u.Email == email);
+
+            if (user != null)
+            {
+                // Compare the provided password with the password stored in the database
+                isValidUser = (user.Password == password);
+            }
+
+            return isValidUser;
+        }
+
+        private List<int> GetIdsFromString(string idString)
+        {
+            List<int> ids = new List<int>();
+
+            // Split the string by commas to get an array of substrings
+            string[] idArray = idString.Split(',');
+
+            // Loop through each substring and try to parse it as an integer
+            foreach (string id in idArray)
+            {
+                int parsedId;
+                if (int.TryParse(id, out parsedId))
+                {
+                    ids.Add(parsedId);
+                }
+            }
+
+            return ids;
+        }
+
+
+        private bool EmailTaken(string email)
+        {
+            return _context.Users.Any(e => e.Email == email);
         }
     }
 }
