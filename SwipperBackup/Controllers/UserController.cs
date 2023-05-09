@@ -107,6 +107,8 @@ namespace SwipperBackup.Controllers
             _context.SaveChanges();
         }
 
+        //TODO: dislike animal
+
         [HttpGet]
         [Route("/api/User/GetFavoriteListings")]
         public List<Listing> GetFavoriteListings(int userId)

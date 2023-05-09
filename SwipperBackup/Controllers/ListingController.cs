@@ -23,6 +23,25 @@ namespace SwipperBackup.Controllers
             return _context.Listings.ToList();
         }
 
+        
+        [HttpGet]
+        [Route("/api/GetListingsForUser")]
+        public List<Listing> GetListingsForUser(int id)
+        {
+            List<Listing> foundListings = _context.Listings.ToList();
+            User user = _context.Users.FirstOrDefault(b => b.Id == id);
+
+            //Filter own listings
+            foundListings.RemoveAll(listing => listing.OwnerId == id);
+
+
+            List<int> toFilterListingIds = GetIdsFromString(user.LikedAnimals);
+            //Filter liked listings
+            foundListings.RemoveAll(listing => toFilterListingIds.Contains(listing.Id));
+
+            return foundListings;
+        }
+
         // GET: api/Listings/5
         [HttpGet("{id}")]
         public Listing GetListings(int id)
@@ -98,6 +117,25 @@ namespace SwipperBackup.Controllers
             return listings;
         }
 
+        private List<int> GetIdsFromString(string idString)
+        {
+            List<int> ids = new List<int>();
+
+            // Split the string by commas to get an array of substrings
+            string[] idArray = idString.Split(',');
+
+            // Loop through each substring and try to parse it as an integer
+            foreach (string id in idArray)
+            {
+                int parsedId;
+                if (int.TryParse(id, out parsedId))
+                {
+                    ids.Add(parsedId);
+                }
+            }
+
+            return ids;
+        }
 
         private bool ListingExists(int id)
         {

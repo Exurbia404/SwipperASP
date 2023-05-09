@@ -60,6 +60,37 @@
         }
       }
     },
+    "/api/GetListingsForUser": {
+      "get": {
+        "tags": [
+          "Listing"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Listing"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Listing/{id}": {
       "get": {
         "tags": [
