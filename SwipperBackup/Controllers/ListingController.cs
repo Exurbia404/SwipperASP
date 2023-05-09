@@ -85,6 +85,15 @@ namespace SwipperBackup.Controllers
         [HttpPost]
         public async Task<ActionResult<Listing>> PostUser(Listing listing)
         {
+            if (listing.AnimalName == "")
+            {
+                return BadRequest();
+            }
+            if (listing.AnimalImageLink.Length < 10)
+            {
+                listing.AnimalImageLink =
+                    "https://storage.googleapis.com/sticker-prod/uR9NsRtlRXXKZHgQvPG7/9.thumb128.png";
+            }
             _context.Listings.Add(listing);
             await _context.SaveChangesAsync();
 
