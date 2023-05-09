@@ -387,7 +387,8 @@
           "200": {
             "description": "Success",
             "schema": {
-              "type": "boolean"
+              "format": "int32",
+              "type": "integer"
             }
           }
         }
@@ -412,6 +413,12 @@
         "animalSpecies": {
           "type": "string"
         },
+        "animalBreed": {
+          "type": "string"
+        },
+        "animalSize": {
+          "type": "string"
+        },
         "animalImageLink": {
           "type": "string"
         },
@@ -421,6 +428,9 @@
         },
         "isMale": {
           "type": "boolean"
+        },
+        "description": {
+          "type": "string"
         },
         "address": {
           "type": "string"

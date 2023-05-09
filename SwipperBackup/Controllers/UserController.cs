@@ -68,10 +68,19 @@ namespace SwipperBackup.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            if (!EmailTaken(user.Email))
+            {
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetUsers), new { id = user.Id }, user);
+                return CreatedAtAction(nameof(GetUsers), new { id = user.Id }, user);
+            }
+            else
+            {
+                return NoContent();
+            }
+
+            
         }
 
         // DELETE: api/Users/5
@@ -115,20 +124,21 @@ namespace SwipperBackup.Controllers
 
         [HttpPost]
         [Route("/api/Authenticate")]
-        public bool Authenticate(string email, string password)
+        public int Authenticate(string email, string password)
         {
-            bool isValidUser = false;
-
             // Retrieve the user from the database using the provided email
             var user = _context.Users.FirstOrDefault(u => u.Email == email);
 
             if (user != null)
             {
                 // Compare the provided password with the password stored in the database
-                isValidUser = (user.Password == password);
+                if (user.Password == password)
+                {
+                    return user.Id;
+                }
             }
 
-            return isValidUser;
+            return 0;
         }
 
         private List<int> GetIdsFromString(string idString)
