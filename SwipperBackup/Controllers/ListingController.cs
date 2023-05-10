@@ -59,10 +59,13 @@ namespace SwipperBackup.Controllers
                 return BadRequest();
             }
 
+            DateTime tempDateTime = listing.ListingDate;
+
             _context.Entry(listing).State = EntityState.Modified;
 
             try
             {
+                listing.ListingDate = tempDateTime;
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -85,10 +88,14 @@ namespace SwipperBackup.Controllers
         [HttpPost]
         public async Task<ActionResult<Listing>> PostUser(Listing listing)
         {
+            //Filter for empty listings
             if (listing.AnimalName == "")
             {
                 return BadRequest();
             }
+            //Set DateTime
+            listing.ListingDate = DateTime.Now;
+            //Set standard imagelink
             if (listing.AnimalImageLink.Length < 10)
             {
                 listing.AnimalImageLink =
