@@ -107,7 +107,24 @@ namespace SwipperBackup.Controllers
             _context.SaveChanges();
         }
 
-        //TODO: dislike animal
+        [HttpPost]
+        [Route("/api/DislikeAnimal")]
+        public void DislikeAnimal(int userId, int animalId)
+        {
+            var user = _context.Users.Find(userId);
+
+            if (user != null)
+            {
+                string likedAnimals = user.LikedAnimals;
+
+                // Remove the disliked animal from the likedAnimals string
+                string newLikedAnimalsString = string.Join(",", likedAnimals.Split(',')
+                    .Where(animal => animal != animalId.ToString()));
+
+                user.LikedAnimals = newLikedAnimalsString;
+                _context.SaveChanges();
+            }
+        }
 
         [HttpGet]
         [Route("/api/User/GetFavoriteListings")]
